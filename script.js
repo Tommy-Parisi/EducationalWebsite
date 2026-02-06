@@ -2,6 +2,7 @@ const themeToggle = document.getElementById('theme-toggle');
 
 // Maze setup
 const canvas = document.getElementById('maze-canvas');
+let ctx = null; // Will be initialized after canvas setup
 
 // Maze grid settings
 const cellSize = 50;
@@ -16,9 +17,7 @@ function setupCanvas() {
   canvas.height = window.innerHeight;
 }
 
-// Setup canvas before getting context
-setupCanvas();
-const ctx = canvas.getContext('2d');
+// Maze generation will be called in the load event
 
 function generateProperMaze() {
   const cols = Math.floor(canvas.width / cellSize);
@@ -107,7 +106,7 @@ function generateProperMaze() {
   }
 }
 
-generateProperMaze();
+// Maze generation will be initialized in load event
 
 function drawMaze() {
   // Clear and set background
@@ -358,41 +357,47 @@ function resetPlayerPosition() {
   bouncingBox.style.top = y + 'px';
 }
 
-// Setup restart button
-document.getElementById('restart-button').addEventListener('click', restartGame);
-
-// Initialize game - Generate maze first, then position player
-generateProperMaze();
-resetPlayerPosition();
-window.focus();
-startTimer();
-
-function animate() {
-  if (!gameOver) {
-    updatePlayerPosition();
-    
-    // Check if goal reached
-    if (checkGoalReached()) {
-      score++;
-      round++;
-      
-      // Increase speed slightly each round
-      moveSpeed += 0.3;
-      
-      // Add remaining time to next round's 10 seconds
-      // If you had 2 seconds left, next round is 10 + 2 = 12 seconds
-      timeRemaining = 15 + timeRemaining;
-      
-      document.getElementById('score-display').textContent = `Score: ${score}`;
-      document.getElementById('timer-display').textContent = `Time: ${timeRemaining}s`;
-      
-      generateProperMaze();
-      resetPlayerPosition();
-    }
-  }
+// Wait for DOM to be fully loaded before initializing
+window.addEventListener('load', () => {
+  setupCanvas();
+  ctx = canvas.getContext('2d');
   
-  drawMaze();
-  requestAnimationFrame(animate);
-}
+  // Setup restart button
+  document.getElementById('restart-button').addEventListener('click', restartGame);
 
-animate();
+  // Initialize game - Generate maze first, then position player
+  generateProperMaze();
+  resetPlayerPosition();
+  window.focus();
+  startTimer();
+
+  function animate() {
+    if (!gameOver) {
+      updatePlayerPosition();
+      
+      // Check if goal reached
+      if (checkGoalReached()) {
+        score++;
+        round++;
+        
+        // Increase speed slightly each round
+        moveSpeed += 0.3;
+        
+        // Add remaining time to next round's 10 seconds
+        // If you had 2 seconds left, next round is 10 + 2 = 12 seconds
+        timeRemaining = 15 + timeRemaining;
+        
+        document.getElementById('score-display').textContent = `Score: ${score}`;
+        document.getElementById('timer-display').textContent = `Time: ${timeRemaining}s`;
+        
+        generateProperMaze();
+        resetPlayerPosition();
+      }
+    }
+    
+    drawMaze();
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+});
