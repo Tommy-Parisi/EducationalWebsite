@@ -1,15 +1,15 @@
 :root {
-  --bg-color: #ffffff;
-  --text-color: #000000;
-  --button-bg: #f0f0f0;
-  --button-text: #000000;
+  --bg-color: #e5b4ea;
+  --text-color: #15173D;
+  --button-bg: #e5b4ea;
+  --button-text: #15173D;
 }
 
 body.dark-mode {
-  --bg-color: #1e1e1e;
-  --text-color: #ffffff;
-  --button-bg: #333333;
-  --button-text: #ffffff;
+  --bg-color: #1d9226;
+  --text-color: #000000;
+  --button-bg: #1d9226;
+  --button-text: #000000;
 }
 
 body {
@@ -17,7 +17,19 @@ body {
   color: var(--text-color);
   font-family: Arial, sans-serif;
   transition: background-color 0.3s, color 0.3s;
+  margin: 0;
+  overflow: hidden;
 }
+
+#maze-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
 
 .theme-toggle {
   position: fixed;
@@ -31,8 +43,91 @@ body {
   cursor: pointer;
   font-size: 14px;
   transition: background-color 0.3s, color 0.3s;
+  z-index: 1000;
 }
 
 .theme-toggle:hover {
   opacity: 0.8;
+}
+
+#ui-panel {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  z-index: 1000;
+}
+
+#score-display, #timer-display {
+  margin: 10px 0;
+}
+
+#game-over-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+#game-over-screen.hidden {
+  display: none;
+}
+
+.game-over-content {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  border: 3px solid var(--text-color);
+}
+
+.game-over-content h1 {
+  font-size: 48px;
+  margin: 0 0 20px 0;
+}
+
+.game-over-content p {
+  font-size: 24px;
+  margin: 20px 0;
+}
+
+#restart-button {
+  padding: 15px 30px;
+  font-size: 18px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#restart-button:hover {
+  background-color: #45a049;
+}
+
+.bouncing-box {
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  background-color: #FF6B6B;
+  border: 3px solid var(--text-color);
+  border-radius: 5px;
+  z-index: 999;
+}
+
+body.dark-mode .bouncing-box {
+  background-color: #FF8787;
 }

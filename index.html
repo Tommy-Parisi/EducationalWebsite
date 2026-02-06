@@ -5,16 +5,24 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <div class="body">
+    <canvas id="maze-canvas"></canvas>
     <button id="theme-toggle" class="theme-toggle">Dark Mode</button>
-    <p><strong>Thomas Parisi</strong></p>
-    <script src="script.js"></script>
+    <div id="ui-panel">
+      <div id="score-display">Score: 0</div>
+      <div id="timer-display">Time: 60s</div>
     </div>
+    <div id="game-over-screen" class="hidden">
+      <div class="game-over-content">
+        <h1>Game Over!</h1>
+        <p id="final-score">Final Score: 0</p>
+        <button id="restart-button">Play Again</button>
+      </div>
+    </div>
+    <div id="bouncing-box" class="bouncing-box"></div>
+    <script src="script.js"></script>
+  </body>
     <div>
       Welcome to my educational software development page!
     </div> 
-    <div>
-      <img src="signature.svg" alt="signature">
-    </div>
   </body>
 </html>
